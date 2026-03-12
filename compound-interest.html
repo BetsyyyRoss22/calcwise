@@ -1,1 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Compound Interest Calculator - CalcWise</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+margin:0;
+background:#f8fafc;
+color:#111827;
+}
+
+.wrap{
+max-width:1100px;
+margin:auto;
+padding:32px 20px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+}
+
+.brand{
+font-size:34px;
+font-weight:800;
+text-decoration:none;
+color:#0f172a;
+}
+
+.nav a{
+text-decoration:none;
+background:white;
+border:1px solid #e2e8f0;
+border-radius:999px;
+padding:10px 14px;
+font-size:14px;
+font-weight:700;
+margin-left:10px;
+color:#0f172a;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1.1fr 1fr;
+gap:24px;
+}
+
+.card{
+background:white;
+border:1px solid #e2e8f0;
+border-radius:18px;
+padding:22px;
+}
+
+h1{
+margin-top:0;
+}
+
+label{
+display:block;
+font-weight:700;
+margin-top:16px;
+margin-bottom:6px;
+}
+
+input,select{
+width:100%;
+padding:14px;
+border:1px solid #cbd5e1;
+border-radius:10px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+.button-row{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+button{
+border:none;
+padding:14px 20px;
+border-radius:10px;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+}
+
+.calculate{
+background:#0f172a;
+color:white;
+}
+
+.calculate:hover{
+background:#1e293b;
+}
+
+.reset{
+background:#e2e8f0;
+}
+
+.result{
+background:white;
+border:1px solid #e2e8f0;
+border-radius:18px;
+padding:20px;
+margin-bottom:16px;
+}
+
+.result-label{
+font-size:14px;
+color:#64748b;
+margin-bottom:6px;
+}
+
+.result-value{
+font-size:30px;
+font-weight:800;
+}
+
+.disclosure{
+font-size:14px;
+color:#64748b;
+line-height:1.6;
+margin-top:10px;
+}
+
+@media(max-width:850px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.brand{
+font-size:30px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="topbar">
+<a class="brand" href="index.html">CalcWise</a>
+
+<div class="nav">
+<a href="index.html">Home</a>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<h1>Compound Interest Calculator</h1>
+
+<label>Starting amount</label>
+<input id="principal" type="number" value="10000">
+
+<label>Monthly contribution</label>
+<input id="monthly" type="number" value="200">
+
+<label>Annual return (%)</label>
+<input id="rate" type="number" value="8">
+
+<label>Compound frequency</label>
+<select id="frequency">
+
+<option value="1">Annually</option>
+<option value="4">Quarterly</option>
+<option value="12" selected>Monthly</option>
+<option value="365">Daily</option>
+
+</select>
+
+<label>Years</label>
+<input id="years" type="number" value="20">
+
+<div class="button-row">
+
+<button class="calculate" onclick="calculate()">Calculate</button>
+<button class="reset" onclick="resetCalc()">Reset</button>
+
+</div>
+
+<div class="disclosure">
+
+Assumes monthly contributions occur at the end of each month.
+Compounding frequency can be adjusted above.
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="result">
+
+<div class="result-label">Projected value</div>
+<div class="result-value" id="total">$0</div>
+
+</div>
+
+
+<div class="result">
+
+<div class="result-label">Total contributed</div>
+<div class="result-value" id="contributed">$0</div>
+
+</div>
+
+
+<div class="result">
+
+<div class="result-label">Investment growth</div>
+<div class="result-value" id="growth">$0</div>
+
+</div>
+
+
+<div class="result">
+
+<div class="result-label">Disclosure</div>
+
+<div class="disclosure">
+
+Results are estimates based on the assumptions provided and should not be considered financial, tax, or investment advice. Actual investment performance will vary.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function currency(n){
+
+return new Intl.NumberFormat('en-US',{
+style:'currency',
+currency:'USD',
+maximumFractionDigits:0
+}).format(n);
+
+}
+
+function calculate(){
+
+let P=Number(document.getElementById('principal').value);
+let PMT=Number(document.getElementById('monthly').value);
+let rate=Number(document.getElementById('rate').value)/100;
+let freq=Number(document.getElementById('frequency').value);
+let years=Number(document.getElementById('years').value);
+
+let r=rate/freq;
+let n=years*freq;
+
+let principalGrowth=P*Math.pow(1+r,n);
+
+let monthlyRate=Math.pow(1+rate/freq,freq/12)-1;
+
+let contribGrowth;
+
+if(monthlyRate===0){
+
+contribGrowth=PMT*12*years;
+
+}else{
+
+contribGrowth=PMT*((Math.pow(1+monthlyRate,12*years)-1)/monthlyRate);
+
+}
+
+let total=principalGrowth+contribGrowth;
+
+let contributed=P+(PMT*12*years);
+
+let growth=total-contributed;
+
+document.getElementById('total').textContent=currency(total);
+document.getElementById('contributed').textContent=currency(contributed);
+document.getElementById('growth').textContent=currency(growth);
+
+}
+
+function resetCalc(){
+
+document.getElementById('principal').value=10000;
+document.getElementById('monthly').value=200;
+document.getElementById('rate').value=8;
+document.getElementById('frequency').value=12;
+document.getElementById('years').value=20;
+
+document.getElementById('total').textContent="$0";
+document.getElementById('contributed').textContent="$0";
+document.getElementById('growth').textContent="$0";
+
+}
+
+calculate();
+
+</script>
+
+</body>
+</html>
