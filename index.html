@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalcWise</title>
+  <title>CalcWise - Compound Interest Calculator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,56 +11,140 @@
       background: #f8fafc;
       color: #111827;
     }
+
     .wrap {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 32px 20px;
     }
+
     h1 {
       font-size: 42px;
       margin-bottom: 8px;
     }
-    p {
+
+    .subtitle {
       color: #475569;
+      margin-bottom: 28px;
+      font-size: 22px;
+      font-weight: 700;
     }
+
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 24px;
-      margin-top: 28px;
+      align-items: start;
     }
+
     .card {
       background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 20px;
+      border: 1px solid #dbe3ec;
+      border-radius: 18px;
+      padding: 22px;
+      box-sizing: border-box;
     }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 22px;
+      font-size: 28px;
+    }
+
     label {
       display: block;
-      font-weight: 600;
-      margin-top: 14px;
-      margin-bottom: 6px;
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-size: 16px;
     }
-   input, select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      box-sizing: border-box;
+      font-size: 16px;
+      background: #fff;
     }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calculate-btn {
+      background: #0f172a;
+      color: white;
+    }
+
+    .calculate-btn:hover {
+      background: #1e293b;
+    }
+
+    .reset-btn {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .reset-btn:hover {
+      background: #cbd5e1;
+    }
+
+    .assumption {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .result-card {
+      margin-bottom: 18px;
+    }
+
     .result-label {
       color: #64748b;
-      font-size: 14px;
+      font-size: 15px;
+      margin-bottom: 8px;
     }
+
     .result-value {
-      font-size: 28px;
-      font-weight: 700;
-      margin-top: 8px;
+      font-size: 30px;
+      font-weight: 800;
+      color: #0f172a;
     }
-    @media (max-width: 800px) {
+
+    .note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 850px) {
       .grid {
         grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .subtitle {
+        font-size: 18px;
       }
     }
   </style>
@@ -68,47 +152,62 @@
 <body>
   <div class="wrap">
     <h1>CalcWise</h1>
-    <p>Simple calculators for smarter money decisions.</p>
+    <div class="subtitle">Simple calculators for smarter money decisions.</div>
 
     <div class="grid">
       <div class="card">
         <h2>Compound Interest Calculator</h2>
 
-        <label>Starting amount</label>
-        <input id="principal" type="number" value="10000" />
+        <label for="principal">Starting amount</label>
+        <input id="principal" type="number" value="10000" min="0" step="0.01" />
 
-        <label>Monthly contribution</label>
-        <input id="monthly" type="number" value="500" />
+        <label for="monthly">Monthly contribution</label>
+        <input id="monthly" type="number" value="200" step="0.01" />
 
-        <label>Annual return (%)</label>
-<input id="rate" type="number" value="8" step="0.01" />
+        <label for="rate">Annual return (%)</label>
+        <input id="rate" type="number" value="8" step="0.01" />
 
-<label>Compound frequency</label>
-<select id="frequency">
-  <option value="1">Annually</option>
-  <option value="4">Quarterly</option>
-  <option value="12" selected>Monthly</option>
-  <option value="365">Daily</option>
-</select>
+        <label for="frequency">Compound frequency</label>
+        <select id="frequency">
+          <option value="1">Annually</option>
+          <option value="4">Quarterly</option>
+          <option value="12" selected>Monthly</option>
+          <option value="365">Daily</option>
+        </select>
 
-<label>Years</label>
-<input id="years" type="number" value="20" />
+        <label for="years">Years</label>
+        <input id="years" type="number" value="20" min="0" step="1" />
+
+        <div class="button-row">
+          <button class="calculate-btn" onclick="calculate()">Calculate</button>
+          <button class="reset-btn" onclick="resetCalculator()">Reset</button>
+        </div>
+
+        <div class="assumption">
+          Assumes monthly contributions are made at the end of each month.
+          Compound frequency can be adjusted above.
+        </div>
       </div>
 
       <div>
-        <div class="card">
+        <div class="card result-card">
           <div class="result-label">Projected value</div>
           <div class="result-value" id="total">$0</div>
         </div>
 
-        <div class="card" style="margin-top:16px;">
+        <div class="card result-card">
           <div class="result-label">Total contributed</div>
           <div class="result-value" id="contributed">$0</div>
         </div>
 
-        <div class="card" style="margin-top:16px;">
+        <div class="card result-card">
           <div class="result-label">Investment growth</div>
           <div class="result-value" id="growth">$0</div>
+        </div>
+
+        <div class="note">
+          This calculator estimates future value based on your starting amount,
+          monthly contributions, annual return, and selected compounding frequency.
         </div>
       </div>
     </div>
@@ -126,17 +225,30 @@
     function calculate() {
       const P = Number(document.getElementById('principal').value || 0);
       const PMT = Number(document.getElementById('monthly').value || 0);
-     const annualRate = Number(document.getElementById('rate').value || 0);
-const frequency = Number(document.getElementById('frequency').value || 12);
-const years = Number(document.getElementById('years').value || 0);
+      const annualRate = Number(document.getElementById('rate').value || 0);
+      const frequency = Number(document.getElementById('frequency').value || 12);
+      const years = Number(document.getElementById('years').value || 0);
 
-const r = annualRate / 100 / frequency;
-const n = years * frequency;
+      const r = annualRate / 100 / frequency;
+      const n = years * frequency;
 
       const fvPrincipal = P * Math.pow(1 + r, n);
-      const fvContrib = r === 0 ? PMT * n : PMT * ((Math.pow(1 + r, n) - 1) / r);
+
+      let fvContrib;
+      if (annualRate === 0) {
+        fvContrib = PMT * 12 * years;
+      } else if (frequency === 12) {
+        fvContrib = PMT * ((Math.pow(1 + r, n) - 1) / r);
+      } else {
+        const effectiveMonthlyRate = Math.pow(1 + annualRate / 100 / frequency, frequency / 12) - 1;
+        const monthlyPeriods = years * 12;
+        fvContrib = effectiveMonthlyRate === 0
+          ? PMT * monthlyPeriods
+          : PMT * ((Math.pow(1 + effectiveMonthlyRate, monthlyPeriods) - 1) / effectiveMonthlyRate);
+      }
+
       const total = fvPrincipal + fvContrib;
-      const contributed = P + PMT * n;
+      const contributed = P + (PMT * 12 * years);
       const growth = total - contributed;
 
       document.getElementById('total').textContent = currency(total);
@@ -144,12 +256,17 @@ const n = years * frequency;
       document.getElementById('growth').textContent = currency(growth);
     }
 
-    ['principal', 'monthly', 'rate', 'years'].forEach(id => {
-  document.getElementById(id).addEventListener('input', calculate);
-});
+    function resetCalculator() {
+      document.getElementById('principal').value = 10000;
+      document.getElementById('monthly').value = 200;
+      document.getElementById('rate').value = 8;
+      document.getElementById('frequency').value = 12;
+      document.getElementById('years').value = 20;
 
-document.getElementById('frequency').addEventListener('change', calculate);
-    });
+      document.getElementById('total').textContent = '$0';
+      document.getElementById('contributed').textContent = '$0';
+      document.getElementById('growth').textContent = '$0';
+    }
 
     calculate();
   </script>
