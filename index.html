@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,27 @@
 
 <style>
 
+:root{
+--bg:#f8fafc;
+--text:#111827;
+--card:#ffffff;
+--border:#e2e8f0;
+--muted:#64748b;
+}
+
+.dark{
+--bg:#0f172a;
+--text:#e5e7eb;
+--card:#1e293b;
+--border:#334155;
+--muted:#94a3b8;
+}
+
 body{
-font-family: Arial, sans-serif;
+font-family:Arial, sans-serif;
 margin:0;
-background:#f8fafc;
-color:#111827;
+background:var(--bg);
+color:var(--text);
 }
 
 .wrap{
@@ -20,15 +37,82 @@ margin:auto;
 padding:32px 20px;
 }
 
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:24px;
+gap:16px;
+flex-wrap:wrap;
+}
+
+.brand{
+font-size:34px;
+font-weight:800;
+text-decoration:none;
+color:var(--text);
+}
+
+.nav{
+display:flex;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.nav a{
+text-decoration:none;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:999px;
+padding:10px 14px;
+font-size:14px;
+font-weight:700;
+color:var(--text);
+}
+
+.theme-btn{
+border:none;
+background:#e2e8f0;
+padding:8px 12px;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+.dark .theme-btn{
+background:#334155;
+color:white;
+}
+
+.hero{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:20px;
+padding:28px;
+margin-bottom:24px;
+}
+
 h1{
 font-size:42px;
-margin-bottom:6px;
+margin:0 0 8px;
 }
 
 .subtitle{
 font-size:20px;
-color:#475569;
-margin-bottom:28px;
+color:var(--muted);
+line-height:1.5;
+margin-bottom:18px;
+}
+
+.notice{
+font-size:14px;
+color:var(--muted);
+line-height:1.6;
+background:rgba(148,163,184,0.08);
+border:1px solid var(--border);
+border-radius:14px;
+padding:14px 16px;
 }
 
 .cards{
@@ -38,14 +122,21 @@ gap:24px;
 }
 
 .card{
-background:white;
-border:1px solid #e2e8f0;
+background:var(--card);
+border:1px solid var(--border);
 border-radius:18px;
 padding:22px;
 }
 
 .card h2{
 margin-top:0;
+margin-bottom:10px;
+}
+
+.card p{
+color:var(--muted);
+line-height:1.6;
+margin-bottom:16px;
 }
 
 .button{
@@ -56,17 +147,16 @@ padding:12px 18px;
 border-radius:10px;
 text-decoration:none;
 font-weight:700;
-margin-top:10px;
 }
 
 .button:hover{
 background:#1e293b;
 }
 
-.notice{
-margin-top:40px;
+.footer-note{
+margin-top:32px;
 font-size:14px;
-color:#64748b;
+color:var(--muted);
 line-height:1.6;
 }
 
@@ -80,18 +170,39 @@ h1{
 font-size:34px;
 }
 
+.brand{
+font-size:30px;
+}
+
 }
 
 </style>
-
 </head>
+
 <body>
 
 <div class="wrap">
 
-<h1>CalcWise</h1>
+<div class="topbar">
+<a class="brand" href="index.html">CalcWise</a>
+
+<div class="nav">
+<a href="compound-interest.html">Compound</a>
+<a href="mortgage.html">Mortgage</a>
+<button onclick="toggleTheme()" class="theme-btn">🌙</button>
+</div>
+</div>
+
+<div class="hero">
+<h1>Simple calculators for smarter money decisions.</h1>
+
 <div class="subtitle">
-Simple calculators for smarter money decisions.
+CalcWise is built to make common money questions easier to understand with clean calculators for investing, debt, home buying, and retirement planning.
+</div>
+
+<div class="notice">
+Results from calculators on CalcWise are estimates based on the information entered and assumptions used in each calculator. These tools are for educational purposes only and should not be considered financial, tax, legal, or investment advice. Actual results may vary.
+</div>
 </div>
 
 <div class="cards">
@@ -99,42 +210,55 @@ Simple calculators for smarter money decisions.
 <div class="card">
 <h2>Compound Interest Calculator</h2>
 <p>
-Estimate future investment value using a starting amount,
-monthly contributions, annual return, and compounding frequency.
+Estimate future investment value using a starting amount, monthly contributions, annual return, and compounding frequency.
 </p>
-
-<a class="button" href="compound-interest.html">
-Open Calculator
-</a>
+<a class="button" href="compound-interest.html">Open Calculator</a>
 </div>
-
 
 <div class="card">
 <h2>Mortgage Payment Calculator</h2>
-
 <p>
-Estimate your monthly mortgage payment using home price,
-down payment, interest rate, loan term, taxes and insurance.
+Estimate your monthly mortgage payment using home price, down payment, interest rate, loan term, taxes, and insurance.
 </p>
-
-<a class="button" href="mortgage.html">
-Open Calculator
-</a>
-
+<a class="button" href="mortgage.html">Open Calculator</a>
 </div>
 
 </div>
 
-<div class="notice">
-
-Results from calculators on CalcWise are estimates based on the inputs
-provided and assumptions used in each calculator. These tools are
-provided for educational purposes only and should not be considered
-financial, tax, legal, or investment advice. Actual results may vary.
-
+<div class="footer-note">
+This is the starter version of CalcWise. As you add more calculators, they can all be linked here from the homepage.
 </div>
 
 </div>
+
+<script>
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark")
+
+localStorage.setItem("theme",
+document.body.classList.contains("dark") ? "dark" : "light")
+
+}
+
+function loadTheme(){
+
+let saved=localStorage.getItem("theme")
+
+if(saved==="dark"){
+document.body.classList.add("dark")
+}else if(!saved){
+if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+document.body.classList.add("dark")
+}
+}
+
+}
+
+loadTheme()
+
+</script>
 
 </body>
 </html>
