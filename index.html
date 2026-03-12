@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CalcWise</title>
 
 <style>
@@ -90,29 +91,18 @@ background:var(--card);
 border:1px solid var(--border);
 border-radius:20px;
 padding:28px;
-margin-bottom:24px;
+margin-bottom:30px;
 }
 
 h1{
 font-size:42px;
-margin:0 0 8px;
+margin:0 0 10px;
 }
 
 .subtitle{
 font-size:20px;
 color:var(--muted);
 line-height:1.5;
-margin-bottom:18px;
-}
-
-.notice{
-font-size:14px;
-color:var(--muted);
-line-height:1.6;
-background:rgba(148,163,184,0.08);
-border:1px solid var(--border);
-border-radius:14px;
-padding:14px 16px;
 }
 
 .cards{
@@ -153,11 +143,13 @@ font-weight:700;
 background:#1e293b;
 }
 
-.footer-note{
-margin-top:32px;
+.disclosure{
+margin-top:40px;
 font-size:14px;
 color:var(--muted);
 line-height:1.6;
+border-top:1px solid var(--border);
+padding-top:20px;
 }
 
 @media (max-width:800px){
@@ -184,6 +176,7 @@ font-size:30px;
 <div class="wrap">
 
 <div class="topbar">
+
 <a class="brand" href="index.html">CalcWise</a>
 
 <div class="nav">
@@ -191,43 +184,62 @@ font-size:30px;
 <a href="mortgage.html">Mortgage</a>
 <button onclick="toggleTheme()" class="theme-btn">🌙</button>
 </div>
+
 </div>
 
+
 <div class="hero">
+
 <h1>Simple calculators for smarter money decisions.</h1>
 
 <div class="subtitle">
-CalcWise is built to make common money questions easier to understand with clean calculators for investing, debt, home buying, and retirement planning.
+CalcWise helps make everyday financial questions easier to understand with simple tools for investing, loans, home buying, and retirement planning.
 </div>
 
-<div class="notice">
-Results from calculators on CalcWise are estimates based on the information entered and assumptions used in each calculator. These tools are for educational purposes only and should not be considered financial, tax, legal, or investment advice. Actual results may vary.
 </div>
-</div>
+
 
 <div class="cards">
 
 <div class="card">
 <h2>Compound Interest Calculator</h2>
+
 <p>
 Estimate future investment value using a starting amount, monthly contributions, annual return, and compounding frequency.
 </p>
-<a class="button" href="compound-interest.html">Open Calculator</a>
+
+<a class="button" href="compound-interest.html">
+Open Calculator
+</a>
+
 </div>
+
 
 <div class="card">
 <h2>Mortgage Payment Calculator</h2>
+
 <p>
 Estimate your monthly mortgage payment using home price, down payment, interest rate, loan term, taxes, and insurance.
 </p>
-<a class="button" href="mortgage.html">Open Calculator</a>
-</div>
+
+<a class="button" href="mortgage.html">
+Open Calculator
+</a>
 
 </div>
 
+</div>
+
+
+<div class="disclosure">
+
+Results from calculators on CalcWise are estimates based on the information entered and assumptions used in each calculator. These tools are provided for educational purposes only and should not be considered financial, tax, legal, or investment advice. Actual results may vary.
+
+</div>
 
 
 </div>
+
 
 <script>
 
